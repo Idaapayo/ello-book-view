@@ -5,25 +5,31 @@ import {
     Typography,
 } from "@mui/material"
 import { cacheExchange, createClient, fetchExchange, Provider } from "urql"
+import BooksReadingList from "./pages/BooksReadingList"
 import BooksList from "./pages/BooksList"
 
+const { palette } = createTheme()
+const { augmentColor } = palette
+const createColor = (mainColor) => augmentColor({ color: { main: mainColor } })
 const theme = createTheme({
     typography: {
         fontFamily: "Mulish",
     },
     palette: {
-        primary: {
+        primaryColors: {
             steelBlue: "#335C6E",
             turquoise: "#5ACCCC",
             yellow: "#FABD33",
         },
-        secondary: {
+        secondaryColors: {
             turquoiseLight: "#CFFAFF",
             orangeRed: "#F76364",
             teal: "#4AA088",
-            yellowDark: "#",
-            light: "#FFB6C1",
+            yellowDark: "#FAAD00",
+            orangePastel: "#FFF6DC",
         },
+        buttonSteelBlue: createColor("#335C6E"),
+        buttonOrangeRed: createColor("#F76364"),
     },
 })
 

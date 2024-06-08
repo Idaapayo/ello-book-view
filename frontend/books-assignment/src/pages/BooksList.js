@@ -1,43 +1,33 @@
-import { useQuery } from "urql"
-import { Grid, Typography } from "@mui/material"
-import BooksCard from "../components/BooksCard"
+import BooksReadingList from "./BooksReadingList"
+import { Box } from "@mui/material"
+import SearchBar from "../components/SearchBar"
+import useGetBooks from "../hooks/useGetBooks"
+import { useMemo, useState } from "react"
+import useLocalStorage from "../hooks/useLocalStorage"
 
 export default function BooksList() {
-    const BOOKS_QUERY = `
-  {
-    books 
-    {
-    author
-    coverPhotoURL
-    readingLevel
-    title
-    }
-  }
-`
-    const [result] = useQuery({
-        query: BOOKS_QUERY,
-    })
-    const { data, fetching, error } = result
-    console.log("the query", data)
+    const result = useGetBooks()
 
+    const [isInReadingList, setIsInReadingList] = useState(false)
+    const [readingList, setReadingList] = useLocalStorage("readingList", [])
+
+    console.log("The reading list", readingList)
+
+    const { data, fetching, error } = result
+
+    const books = useMemo(() => data?.books, [data?.books])
     return (
-        <div className="">
-            <Typography variant="h3" m={5}>
-                Reading list
-            </Typography>
-            <Grid container spacing={2} rowSpacing={5}>
-                {data?.books &&
-                    data?.books.length > 0 &&
-                    data.books.map((book) => (
-                        <Grid item xs={12} md={6} lg={4} key={book.title}>
-                            <BooksCard
-                                imageSrc={book.coverPhotoURL}
-                                title={book.title}
-                                author={book.author}
-                            />
-                        </Grid>
-                    ))}
-            </Grid>
-        </div>
+        <Box pt={10}>
+            <SearchBar
+                books={books}
+                readingList={readingList}
+                setReadingList={setReadingList}
+            />
+            <BooksReadingList
+                books={books}
+                readingList={readingList}
+                setReadingList={setReadingList}
+            />
+        </Box>
     )
 }
