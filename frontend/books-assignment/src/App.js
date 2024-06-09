@@ -1,11 +1,5 @@
-import {
-    Container,
-    createTheme,
-    ThemeProvider,
-    Typography,
-} from "@mui/material"
+import { Container, createTheme, ThemeProvider } from "@mui/material"
 import { cacheExchange, createClient, fetchExchange, Provider } from "urql"
-import BooksReadingList from "./pages/BooksReadingList"
 import BooksList from "./pages/BooksList"
 
 const { palette } = createTheme()

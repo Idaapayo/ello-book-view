@@ -1,20 +1,17 @@
 import { useState } from "react"
 
 export default function useLocalStorage(key, defaultValue) {
-    // Create state variable to store
-    // localStorage value in state
+    // Create state variable to store localStorage value in state
     const [localStorageValue, setLocalStorageValue] = useState(() => {
         try {
+            // If value is already present in localStorage then return it
             const value = localStorage.getItem(key)
-            // If value is already present in
-            // localStorage then return it
-
-            // Else set default value in
-            // localStorage and then return it
+            // Else set default value in localStorage and then return it
             if (value) {
                 return JSON.parse(value)
             } else {
                 localStorage.setItem(key, JSON.stringify(defaultValue))
+
                 return defaultValue
             }
         } catch (error) {

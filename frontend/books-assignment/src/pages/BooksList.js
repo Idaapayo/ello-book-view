@@ -16,7 +16,7 @@ export default function BooksList() {
 
     const books = useMemo(() => data?.books, [data?.books])
     return (
-        <Box pt={10} pb={10}>
+        <Box py={10}>
             {fetching === true && <CircularProgress />}
             {error ? (
                 <ErrorPage />
