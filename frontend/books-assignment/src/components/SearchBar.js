@@ -41,21 +41,20 @@ export default function SearchBar({ books, readingList, setReadingList }) {
     )
 
     useEffect(() => {
-        // Limit the search results to 10 to prevent a super long search list
-        setFilteredBooks(results.map((result) => result.original).slice(0, 10))
+        setFilteredBooks(results.map((result) => result.original))
     }, [results])
 
-    // Add books to reading list
-    const addBookToReadingList = (book) => {
-        setReadingList((prev) => {
-            console.log("the prev", prev)
-            return [...prev, book]
-        })
-    }
-
     return (
-        <Box>
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+        <Box
+            sx={{
+                position: "relative",
+                zIndex: 10,
+                textAlign: "center",
+                width: "80%",
+                marginX: "auto",
+            }}
+        >
+            <Box>
                 <TextField
                     variant="outlined"
                     value={searchTerm}
@@ -68,24 +67,56 @@ export default function SearchBar({ books, readingList, setReadingList }) {
                             </InputAdornment>
                         ),
                     }}
-                    sx={{ flexGrow: 1 }}
+                    sx={{
+                        width: "100%",
+                        // flexGrow: 1,
+                        "& .MuiOutlinedInput-root": {
+                            "& fieldset": {
+                                borderWidth: "2px",
+                                borderColor: "#335C6E",
+                            },
+                            "&:hover fieldset": {
+                                borderColor: "#5ACCCC",
+                            },
+                            "&.Mui-focused fieldset": {
+                                borderColor: "#5ACCCC",
+                            },
+                        },
+                    }}
                 />
             </Box>
-            <Box py={5} px={5}>
-                {filteredBooks.length > 0 &&
-                    searchTerm &&
-                    filteredBooks.map((book) => (
-                        <BookSearchListCard
-                            book={book}
-                            setReadingList={setReadingList}
-                        />
-                    ))}
-                {filteredBooks.length === 0 && searchTerm && (
-                    <Typography variant="h6" color="primaryColors.steelBlue">
-                        Oops! This book was not found
-                    </Typography>
-                )}
-            </Box>
+            {searchTerm && (
+                <Box
+                    sx={{
+                        overflowY: "auto",
+                        position: "absolute",
+                        maxHeight: "300px",
+                        backgroundColor: "white",
+                        width: "100%",
+                        boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+                    }}
+                >
+                    {filteredBooks.length > 0 ? (
+                        filteredBooks.map((book) => (
+                            <Box p={2}>
+                                <BookSearchListCard
+                                    book={book}
+                                    setReadingList={setReadingList}
+                                />
+                            </Box>
+                        ))
+                    ) : (
+                        <Box p={2}>
+                            <Typography
+                                variant="h6"
+                                color="primaryColors.steelBlue"
+                            >
+                                Oops! This book was not found
+                            </Typography>
+                        </Box>
+                    )}
+                </Box>
+            )}
         </Box>
     )
 }

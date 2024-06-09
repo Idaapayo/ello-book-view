@@ -15,6 +15,9 @@ const theme = createTheme({
     typography: {
         fontFamily: "Mulish",
     },
+    shape: {
+        borderRadius: 16,
+    },
     palette: {
         primaryColors: {
             steelBlue: "#335C6E",
@@ -30,6 +33,7 @@ const theme = createTheme({
         },
         buttonSteelBlue: createColor("#335C6E"),
         buttonOrangeRed: createColor("#F76364"),
+        buttonTurquoise: createColor("#5ACCCC"),
     },
 })
 

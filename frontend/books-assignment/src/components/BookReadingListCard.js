@@ -10,14 +10,10 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete"
 
 export default function BookReadingListCard({
-    // imageSrc,
-    // author,
-    // title,
     book,
     cardHeight = 140,
     setReadingList,
 }) {
-    console.log("the book", book)
     const { author, title, coverPhotoURL = "assets/image1.webp" } = book || {}
 
     // Remove books from reading list
@@ -40,7 +36,7 @@ export default function BookReadingListCard({
                 </Typography>
                 <Box pt={2}>
                     <Typography
-                        variant="p"
+                        variant="bod1"
                         color="primaryColors.steelBlue"
                     >{`By: ${author}`}</Typography>
                 </Box>
@@ -51,6 +47,7 @@ export default function BookReadingListCard({
                         display: "flex",
                         justifyContent: "right",
                         width: "100%",
+                        paddingBottom: "5px",
                     }}
                 >
                     <Button
@@ -65,7 +62,6 @@ export default function BookReadingListCard({
                     </Button>
                 </Box>
             </CardActions>
-            {/*</Box>*/}
         </Card>
     )
 }
